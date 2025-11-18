@@ -1,0 +1,9 @@
+from typing import Union
+
+PORT: int = 5000
+
+HEARTBEAT_INTERVAL_IN_SECONDS: Union[int, float] = 20
+HEARTBEAT_TIMEOUT_IN_SECONDS: Union[int, float] = HEARTBEAT_INTERVAL_IN_SECONDS * 1.5
+
+MAX_CLIENT_COUNT: int = 50
+MAX_PAYLOAD_PER_SECOND: int = 2
