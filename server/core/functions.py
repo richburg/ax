@@ -2,7 +2,7 @@ import asyncio
 import re
 from typing import Optional
 
-from server.models import Client
+from server.core.models import Client
 from server.variables import clients
 
 

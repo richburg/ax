@@ -9,6 +9,8 @@ from server.settings import MAX_PAYLOAD_PER_SECOND
 
 @dataclass
 class Client:
+    """Represents a connected client"""
+
     last_heartbeat: float
 
     _writer: StreamWriter
@@ -17,6 +19,7 @@ class Client:
     _timestamps = deque()
 
     nickname: Optional[str] = None
+    muted: bool = False
 
     async def disconnect(self) -> None:
         """Close the connection"""

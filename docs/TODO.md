@@ -1,3 +1,4 @@
 - [x] Add administrator authentication with static keys
 - [x] Organize the tests and just make them robuster
-- [ ] Extend the functionality for better user experience
+- [x] Restructure the codebase
+- [ ] Create tests for /kick, /mute and /unmute commands

@@ -2,11 +2,16 @@ import asyncio
 import logging
 from typing import Callable
 
-from server.core import convert_to_payload, send_heartbeats
-from server.handlers import handle_auth, handle_list, handle_message, handle_nick
-from server.models import Client
+from server.core.essentials import convert_to_payload, send_heartbeats
+from server.core.functions import get_current_time, write_to_all_clients
+from server.core.models import Client
+from server.handlers.admin import (
+    handle_kick,
+    handle_mute,
+    handle_unmute,
+)
+from server.handlers.users import handle_auth, handle_list, handle_message, handle_nick
 from server.settings import MAX_CLIENT_COUNT, PORT
-from server.utilities import get_current_time, write_to_all_clients
 from server.variables import clients
 
 
@@ -43,6 +48,9 @@ async def callback(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -
                 "NICK": handle_nick,
                 "LIST": handle_list,
                 "AUTH": handle_auth,
+                "KICK": handle_kick,
+                "MUTE": handle_mute,
+                "UNMUTE": handle_unmute,
                 "MESSAGE": handle_message,
             }
             if payload.type_ in mapping:

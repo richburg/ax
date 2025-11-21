@@ -1,7 +1,7 @@
 import random
 import unittest
 
-from server.utilities import load_admins
+from server.core.functions import load_admins
 
 from . import Client
 

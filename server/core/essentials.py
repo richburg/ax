@@ -3,9 +3,9 @@ import functools
 import logging
 from typing import Callable, Optional
 
-from server.models import Client, Payload
+from server.core.functions import get_current_time
+from server.core.models import Client, Payload
 from server.settings import HEARTBEAT_INTERVAL_IN_SECONDS, HEARTBEAT_TIMEOUT_IN_SECONDS
-from server.utilities import get_current_time
 
 
 async def send_heartbeats(client: Client) -> None:
@@ -63,6 +63,22 @@ def expect_nick():
         async def wrapper(client: Client, payload: Payload):
             if not client.nickname:
                 await client.write("NICKNAME_NOT_SET")
+                return
+            return await func(client, payload)
+
+        return wrapper
+
+    return decorator
+
+
+def expect_admin():
+    """Ensure that the client is an administrator"""
+
+    def decorator(func: Callable):
+        @functools.wraps(func)
+        async def wrapper(client: Client, payload: Payload):
+            if not client.admin:
+                await client.write("UNAUTHORIZED")
                 return
             return await func(client, payload)
 
