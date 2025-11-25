@@ -1,8 +1,6 @@
 import asyncio
 
-# *** Configuration ***
 HEARTBEAT_TEST_ENABLED: bool = False
-# *** Configuration END ***
 
 
 class Client:
