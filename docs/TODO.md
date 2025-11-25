@@ -1,4 +1,5 @@
 - [x] Add administrator authentication with static keys
 - [x] Organize the tests and just make them robuster
 - [x] Restructure the codebase
+- [ ] Make tests/client.py more functional and robust
 - [ ] Create tests for /kick, /mute and /unmute commands
