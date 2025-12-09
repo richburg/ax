@@ -1,5 +1,5 @@
 > [!WARNING]
-> This project is not production-ready since it's currently in beta phase and has no proper documentation yet
+> A new beta version is coming. This version is full of unhandled possible errors, security vulnerabilities and much more.
 
 # ax
 Portable and lightweight TCP chatting server with straightforward configuration and deployment
