@@ -35,3 +35,7 @@ def is_valid_nickname(nickname: str) -> bool:
     """Only **lowercase** letters and between **1-12** characters long."""
     regex_for_a_valid_nickname = r"^[a-z]{1,12}$"
     return bool(re.fullmatch(regex_for_a_valid_nickname, nickname))
+
+
+def get_all_nicks() -> list[str]:
+    return [client.nick or "" for client in clients]
