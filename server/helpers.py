@@ -38,4 +38,5 @@ def is_valid_nick(nickname: str) -> bool:
 
 
 def get_all_nicks() -> list[str]:
+    """Query all the registered nicknames"""
     return [client.nick or "" for client in clients]

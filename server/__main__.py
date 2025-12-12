@@ -1,11 +1,10 @@
 import asyncio
 import logging
-from typing import Callable
 
+from server.commands import mapping
 from server.core import convert_to_payload, heartbeat_daemon
 from server.helpers import get_current_time, register_new_client, write_to_all_clients
 from server.settings import HOST, MAX_CLIENT_COUNT, PORT
-from server.user_commands import handle_list, handle_message, handle_nick
 from server.variables import clients
 
 
@@ -37,11 +36,6 @@ async def callback(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -
                 client.last_heartbeat_time = get_current_time()
                 continue
 
-            mapping: dict[str, Callable] = {
-                "NICK": handle_nick,
-                "MESSAGE": handle_message,
-                "LIST": handle_list,
-            }
             if payload.message in mapping:
                 await mapping[payload.message](client, payload)
 

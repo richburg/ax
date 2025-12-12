@@ -1,9 +1,7 @@
-from server.core import expect_a_nick, expect_args
+from server.core import expect_args
 from server.helpers import (
-    get_all_nicks,
     get_client_by_nick,
     is_valid_nick,
-    write_to_all_clients,
 )
 from server.models import Client, Payload
 
@@ -26,18 +24,3 @@ async def handle_nick(client: Client, payload: Payload):
 
     client.nick = desired_nick
     await client.write(f"SET_NICK|{desired_nick}")
-
-
-@expect_a_nick()
-@expect_args(1)
-async def handle_message(client: Client, payload: Payload):
-    message: str = payload.args[0]
-    write_to_all_clients(f"NEW_USER_MESSAGE|{client.nick}|{message}")
-
-
-@expect_a_nick()
-@expect_args(0)
-async def handle_list(client: Client, _):
-    nicks = get_all_nicks()
-    formatted = "|".join(nicks)
-    await client.write(f"USER_LIST|{formatted}")
