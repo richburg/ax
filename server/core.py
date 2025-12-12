@@ -66,17 +66,3 @@ def expect_a_nick():
         return wrapper
 
     return decorator
-
-
-def expect_client_to_be_admin():
-    def decorator(func: Callable):
-        @functools.wraps(func)
-        async def wrapper(client: Client, payload: Payload):
-            if not client.admin:
-                await client.write("UNAUTHORIZED")
-                return
-            return await func(client, payload)
-
-        return wrapper
-
-    return decorator

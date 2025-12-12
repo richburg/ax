@@ -31,7 +31,7 @@ def get_client_by_nick(nick: str) -> Optional[Client]:
     return next((client for client in clients if client.nick == nick), None)
 
 
-def is_valid_nickname(nickname: str) -> bool:
+def is_valid_nick(nickname: str) -> bool:
     """Only **lowercase** letters and between **1-12** characters long."""
     regex_for_a_valid_nickname = r"^[a-z]{1,12}$"
     return bool(re.fullmatch(regex_for_a_valid_nickname, nickname))

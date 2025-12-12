@@ -19,15 +19,10 @@ class Client:
     _timestamps: deque = field(default_factory=deque)
 
     nick: Optional[str] = None  # Min: 2 Max: 12
-    muted: bool = False
 
     @cached_property
     def ip(self) -> str:
         return self._writer.get_extra_info("peername")[0]
-
-    @cached_property
-    def admin(self) -> bool:
-        return bool(self.nick and self.nick.startswith("@"))
 
     @property
     def rate_limited(self) -> bool:
