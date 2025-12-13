@@ -8,4 +8,4 @@ class TestList(unittest.IsolatedAsyncioTestCase):
         async with Client() as client:
             await client.send("NICK|test")
             await client.send("LIST")
-            self.assertTrue("LIST_RESPONSE|test" in await client.receive(0.1))
+            self.assertTrue("LIST_OK|test" in await client.receive(0.1))

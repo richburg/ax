@@ -8,4 +8,4 @@ class TestWhoami(unittest.IsolatedAsyncioTestCase):
         async with Client() as client:
             await client.send("NICK|test")
             await client.send("WHOAMI")
-            self.assertTrue("YOU_ARE|test" in await client.receive(0.1))
+            self.assertTrue("WHOAMI_OK|test" in await client.receive(0.1))
