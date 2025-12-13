@@ -12,6 +12,26 @@ class Payload:
     message: str
     args: list[str]
 
-Example `payload.message`: NEW_USER_MESSAGE
+Example `payload.message`: INCOMING_MESSAGE
 Example `payload.args`: [<author>, <content>]
-Unparsed: NEW_USER_MESSAGE|dylan|hello
+
+Server-side payloads
+====================
+
+SLOW_DOWN
+UNAUTHORIZED
+INCOMING_MESSAGE|<author>|<message>
+PING
+
+NICK_ALREADY_SET
+NICK_INVALID
+NICK_TAKEN
+
+NICK_OK|<desired_nick>
+LIST_OK|<user1>|<user2>|<user3>|...
+WHOAMI_OK|<nick>
+
+TODO
+====
+
+[ ] Populate server/commands/
