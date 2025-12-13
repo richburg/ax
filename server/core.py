@@ -59,7 +59,7 @@ def expect_a_nick():
         @functools.wraps(func)
         async def wrapper(client: Client, payload: Payload):
             if not client.nick:
-                await client.write("MISSING_NICK")
+                await client.write("UNAUTHORIZED")
                 return
             return await func(client, payload)
 

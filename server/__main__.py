@@ -3,7 +3,7 @@ import logging
 
 from server.commands import mapping
 from server.core import convert_to_payload, heartbeat_daemon
-from server.helpers import get_current_time, register_new_client, write_to_all_clients
+from server.helpers import broadcast, get_current_time, register_new_client
 from server.settings import HOST, MAX_CLIENT_COUNT, PORT
 from server.variables import clients
 
@@ -55,7 +55,7 @@ async def callback(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -
         heartbeat_task.cancel()
 
         if client.nick:
-            write_to_all_clients(f"USER_LEAVE|{client.nick}")
+            broadcast(f"LEFT|{client.nick}")
 
         logging.info(f"Connection closed with {client}")
 

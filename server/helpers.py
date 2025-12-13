@@ -11,7 +11,7 @@ def get_current_time():
     return asyncio.get_running_loop().time()
 
 
-def write_to_all_clients(content: str):
+def broadcast(content: str):
     """Write `content` to all clients"""
     for client in clients:
         asyncio.create_task(client.write(content))
@@ -35,8 +35,3 @@ def is_valid_nick(nickname: str) -> bool:
     """Only **lowercase** letters and between **1-12** characters long."""
     regex_for_a_valid_nickname = r"^[a-z]{1,12}$"
     return bool(re.fullmatch(regex_for_a_valid_nickname, nickname))
-
-
-def get_all_nicks() -> list[str]:
-    """Query all the registered nicknames"""
-    return [client.nick or "" for client in clients]

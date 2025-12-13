@@ -8,6 +8,7 @@ from server.models import Client, Payload
 
 @expect_args(1)
 async def handle_nick(client: Client, payload: Payload):
+    """Set a nick"""
     desired_nick = payload.args[0]
 
     if client.nick:
@@ -15,7 +16,7 @@ async def handle_nick(client: Client, payload: Payload):
         return
 
     if not is_valid_nick(desired_nick):
-        await client.write("INVALID_NICK")
+        await client.write("NICK_INVALID")
         return
 
     if get_client_by_nick(desired_nick):
@@ -23,4 +24,4 @@ async def handle_nick(client: Client, payload: Payload):
         return
 
     client.nick = desired_nick
-    await client.write(f"SET_NICK|{desired_nick}")
+    await client.write(f"NICK_OK|{desired_nick}")
