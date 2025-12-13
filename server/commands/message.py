@@ -8,5 +8,5 @@ from server.models import Client, Payload
 @expect_a_nick()
 @expect_args(1)
 async def handle_message(client: Client, payload: Payload):
-    message: str = payload.args[0]
+    message = payload.args[0]
     write_to_all_clients(f"NEW_USER_MESSAGE|{client.nick}|{message}")
