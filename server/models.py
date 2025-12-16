@@ -19,6 +19,7 @@ class Client:
     _timestamps: deque = field(default_factory=deque)
 
     nick: Optional[str] = None  # Min: 2 Max: 12
+    away: bool = False
 
     @cached_property
     def ip(self) -> str:
