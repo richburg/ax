@@ -32,8 +32,10 @@ USER_NOT_FOUND
 NICK_OK|<desired_nick>
 LIST_OK|<user1>|<user2>|<user3>|...
 WHOAMI_OK|<nick>
+TOGGLE_AFK_OK
+CHECK_AFK_OK|<given_nick>|<boolean>
 
 TODO
 ====
 
-[ ] Populate server/commands/
+[x] Populate server/commands/
