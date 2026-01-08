@@ -1,12 +1,12 @@
 About
 =====
 
-Lightweight, easy-to-deploy and hackable TCP chatting server. It is designed for small to medium communities.
+Lightweight, easy-to-deploy and hackable TCP chatting server designed for small to medium communities.
 
 Protocol
 ========
 
-`ax` uses its own protocol. Message formatting is same for both server and client:
+Message formatting is alike both for server and client.
 
 class Payload:
     message: str
