@@ -1,0 +1,41 @@
+About
+=====
+
+Lightweight, easy-to-deploy and minimal TCP chatting server. It is designed for small communities.
+
+Protocol
+========
+
+`ax` uses its own protocol. Message formatting is same for both server and client:
+
+class Payload:
+    message: str
+    args: list[str]
+
+Example `payload.message`: INCOMING_MESSAGE
+Example `payload.args`: [<author>, <content>]
+
+Server-side payloads
+====================
+
+SLOW_DOWN
+UNAUTHORIZED
+INCOMING_MESSAGE|<author>|<message>
+PING
+
+NICK_ALREADY_SET
+NICK_INVALID
+NICK_TAKEN
+
+USER_NOT_FOUND
+
+NICK_OK|<desired_nick>
+LIST_OK|<user1>|<user2>|<user3>|...
+WHOAMI_OK|<nick>
+TOGGLE_AFK_OK
+CHECK_AFK_OK|<given_nick>|<boolean>
+
+TODO
+====
+
+[x] Populate server/commands/

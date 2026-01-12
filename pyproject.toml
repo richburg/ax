@@ -1,0 +1,7 @@
+[project]
+name = "ax"
+version = "1.0.0"
+description = "Simple yet robust TCP chatting server"
+readme = "docs/README.md"
+requires-python = ">=3.13"
+dependencies = []
