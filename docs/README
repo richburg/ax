@@ -1,7 +1,7 @@
 About
 =====
 
-Lightweight, easy-to-deploy and minimal TCP chatting server. It is designed for small communities.
+Lightweight, easy-to-deploy and minimal TCP chatting server. It was mainly designed for small communities but doesn't lack anything regarding security.
 
 Protocol
 ========
