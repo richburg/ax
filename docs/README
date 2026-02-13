@@ -15,6 +15,15 @@ class Payload:
 Example `payload.message`: INCOMING_MESSAGE
 Example `payload.args`: [<author>, <content>]
 
+Client-side payloads
+====================
+
+NICK|<desired_nick>
+LIST
+WHOAMI
+TOGGLE_AFK
+CHECK_AFK|<target_user_nick>
+
 Server-side payloads
 ====================
 
@@ -33,7 +42,7 @@ NICK_OK|<desired_nick>
 LIST_OK|<user1>|<user2>|<user3>|...
 WHOAMI_OK|<nick>
 TOGGLE_AFK_OK
-CHECK_AFK_OK|<given_nick>|<boolean>
+CHECK_AFK_OK|<given_nick>|<"true" or "false">
 
 TODO
 ====
