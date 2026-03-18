@@ -17,15 +17,6 @@ def broadcast(content: str):
         asyncio.create_task(client.write(content))
 
 
-def register_new_client(
-    writer: asyncio.StreamWriter, reader: asyncio.StreamReader
-) -> Client:
-    """In-memory registration"""
-    client = Client(get_current_time(), writer, reader)
-    clients.append(client)
-    return client
-
-
 def get_client_by_nick(nick: str) -> Optional[Client]:
     """Get a client by its nickanme"""
     return next((client for client in clients if client.nick == nick), None)

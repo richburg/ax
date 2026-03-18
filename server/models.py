@@ -1,11 +1,10 @@
 import time
 from asyncio import StreamReader, StreamWriter
-from collections import deque
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from functools import cached_property
 from typing import Optional
 
-from server.settings import MAX_BYTES_PER_SECOND
+from server.settings import MAX_REQUESTS_PER_SECOND
 
 
 @dataclass
@@ -16,29 +15,31 @@ class Client:
     _reader: StreamReader
 
     _closed: bool = False
-    _timestamps: deque = field(default_factory=deque)
+    _last_refill = time.monotonic()
+    _tokens = MAX_REQUESTS_PER_SECOND
 
-    nick: Optional[str] = None  # Min: 2 Max: 12
-    away: bool = False
+    nick: Optional[str] = None  # 2 to 12 characters long
 
     @cached_property
     def ip(self) -> str:
+        """Cached IP address"""
         return self._writer.get_extra_info("peername")[0]
 
-    @property
-    def rate_limited(self) -> bool:
+    def is_rate_limited(self) -> bool:
+        """Implements the token bucket algorithm"""
         now = time.monotonic()
+        elapsed = now - self._last_refill
 
-        # Clears timestamps older than 1 second
-        while self._timestamps and now - self._timestamps[0] >= 1:
-            self._timestamps.popleft()
+        how_many_tokens_to_add: float = elapsed * MAX_REQUESTS_PER_SECOND
+        self._tokens = min(
+            MAX_REQUESTS_PER_SECOND, self._tokens + how_many_tokens_to_add
+        )
+        self._last_refill = now
 
-        # Check if rate limited
-        if len(self._timestamps) >= MAX_BYTES_PER_SECOND:
+        if self._tokens < 1:
             return True
 
-        # New payload sent -> new timestamp
-        self._timestamps.append(now)
+        self._tokens -= 1
         return False
 
     async def write(self, content: str) -> None:
@@ -70,7 +71,9 @@ class Client:
             self._closed = True
 
     def __str__(self) -> str:
-        return f"{self.ip}:{self.nick or 'None'}"
+        if self.nick and self.ip:
+            return self.ip + ":" + self.nick
+        return self.ip
 
 
 @dataclass

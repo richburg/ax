@@ -1,6 +1,6 @@
 [project]
 name = "ax"
-version = "1.0.0"
+version = "1.1.0"
 description = "Simple yet robust TCP chatting server"
 readme = "docs/README"
 requires-python = ">=3.13"
