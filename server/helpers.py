@@ -7,7 +7,7 @@ from server.variables import clients
 
 
 def get_current_time():
-    """Return the current runng loop time in UNIX timestamp format"""
+    """Return the time in UNIX timestamp format"""
     return asyncio.get_running_loop().time()
 
 
