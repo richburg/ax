@@ -35,10 +35,6 @@ async def callback(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -
             if not payload:
                 continue
 
-            if payload.message == "PONG":
-                client.last_heartbeat_time = get_current_time()
-                continue
-
             if payload.message in mapping:
                 await mapping[payload.message](client, payload)
 

@@ -1,5 +1,7 @@
 from typing import Callable
 
+from server.commands.pong import handle_pong
+
 from .list import handle_list
 from .message import handle_message
 from .nick import handle_nick
@@ -10,4 +12,5 @@ mapping: dict[str, Callable] = {
     "LIST": handle_list,
     "MESSAGE": handle_message,
     "WHOAMI": handle_whoami,
+    "PONG": handle_pong,
 }

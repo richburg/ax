@@ -1,6 +1,6 @@
 import time
 from asyncio import StreamReader, StreamWriter
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from functools import cached_property
 from typing import Optional
 
@@ -15,10 +15,11 @@ class Client:
     _reader: StreamReader
 
     _closed: bool = False
-    _last_refill = time.monotonic()
-    _tokens = MAX_REQUESTS_PER_SECOND
 
-    nick: Optional[str] = None  # 2 to 12 characters long
+    _last_refill: float = field(default_factory=time.monotonic)
+    _tokens: float = field(default=MAX_REQUESTS_PER_SECOND)
+
+    nick: Optional[str] = None
 
     @cached_property
     def ip(self) -> str:
@@ -49,26 +50,27 @@ class Client:
         try:
             self._writer.write((content + "\n").encode())
             await self._writer.drain()
-        except OSError:
+        except (OSError, ConnectionError):
             self._closed = True
 
     async def read(self) -> Optional[bytes]:
         """Read data from client socket until newline"""
+        if self._closed:
+            return
         try:
-            if not self._closed:
-                return await self._reader.readline()
-        except OSError:
+            received = await self._reader.readline()
+            return received
+        except (OSError, ConnectionError):
             self._closed = True
 
     async def disconnect(self) -> None:
         """Close the connection safely"""
         self._writer.close()
-        if not self._closed:
-            try:
-                await self._writer.wait_closed()
-            except OSError:
-                pass
-            self._closed = True
+        try:
+            await self._writer.wait_closed()
+        except (OSError, ConnectionError):
+            pass
+        self._closed = True
 
     def __str__(self) -> str:
         if self.nick and self.ip:
@@ -78,7 +80,7 @@ class Client:
 
 @dataclass
 class Payload:
-    """Represents a message in the connection flow"""
+    """Represents a payload from client"""
 
     message: str
     args: list[str]
