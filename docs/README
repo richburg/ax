@@ -1,12 +1,12 @@
 About
 =====
 
-Lightweight, easy-to-deploy and minimal TCP chatting server. It was mainly designed for small communities but doesn't lack anything regarding security.
+Lightweight and easy-to-deploy TCP chatting server. It was mainly designed for small communities but doesn't lack anything regarding security.
 
 Protocol
 ========
 
-`ax` uses its own protocol. Message formatting is same for both server and client:
+`ax` uses a highly understandable and simple protocol I've came up with. See below for examples.
 
 class Payload:
     message: str
@@ -21,8 +21,6 @@ Client-side payloads
 NICK|<desired_nick>
 LIST
 WHOAMI
-TOGGLE_AFK
-CHECK_AFK|<target_user_nick>
 
 Server-side payloads
 ====================
@@ -36,10 +34,6 @@ NICK_ALREADY_SET
 NICK_INVALID
 NICK_TAKEN
 
-USER_NOT_FOUND
-
 NICK_OK|<desired_nick>
 LIST_OK|<user1>|<user2>|<user3>|...
 WHOAMI_OK|<nick>
-TOGGLE_AFK_OK
-CHECK_AFK_OK|<given_nick>|<"True" or "False">

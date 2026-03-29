@@ -8,7 +8,7 @@ from server.models import Client, Payload
 
 @expect_args(1)
 async def handle_nick(client: Client, payload: Payload):
-    """Set a nick"""
+    """Set a unique nickname"""
     desired_nick = payload.args[0]
 
     if client.nick:
